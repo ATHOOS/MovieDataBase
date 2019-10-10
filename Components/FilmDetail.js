@@ -1,10 +1,11 @@
 // Components/FilmDetail.js
 
 import React from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, Button } from 'react-native'
 import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
+import { connect } from 'react-redux'
 
 class FilmDetail extends React.Component {
   constructor(props) {
@@ -24,6 +25,11 @@ class FilmDetail extends React.Component {
     })
   }
 
+  componentDidUpdate() {
+    console.log("componentDidUpdate : ")
+    console.log(this.props.favoritesFilm)
+  }
+
   _displayLoading() {
     if (this.state.isLoading) {
       return (
@@ -35,7 +41,8 @@ class FilmDetail extends React.Component {
   }
 
   _toggleFavorite() {
-
+    const action = { type: "TOGGLE_FAVORITE", value: this.state.film }
+    this.props.dispatch(action)
   }
 
   _displayFilm() {
@@ -122,4 +129,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FilmDetail
+const mapStateToProps = (state) => {
+  return {
+    favoritesFilm: state.favoritesFilm
+  }
+}
+
+export default connect(mapStateToProps)(FilmDetail)
