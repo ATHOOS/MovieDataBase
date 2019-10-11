@@ -1,7 +1,7 @@
 // Components/FilmDetail.js
 
 import React from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, Button } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, Button, TouchableOpacity } from 'react-native'
 import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
@@ -48,9 +48,9 @@ class FilmDetail extends React.Component {
 
   _displayFavoriteImage() {
     var sourceImage = require('../Images/ic_favorite.png')
-    if (this.props.favoritesFilm.filmIndex(item => item.id === this.state.film.id) !== -1) {
-      sourceImage = require('../Images/ic_favorite.png')
-    }
+    //if (this.props.favoritesFilm.filmIndex(item => item.id === this.state.film.id) !== -1) {
+    //  sourceImage = require('../Images/ic_favorite.png')
+    //}
     return (
       <Image
         style={styles.favorite_image}
@@ -160,4 +160,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)('FilmDetail.js')
+export default connect(mapStateToProps)(FilmDetail)

@@ -81,7 +81,7 @@ class Search extends React.Component {
             <FilmItem
               film={item}
               // Ajout d'une props isFilmFavorite pour indiquer à l'item d'afficher un 🖤 ou non
-              isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
+              //isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
               displayDetailForFilm={this._displayDetailForFilm}
             />
           }
@@ -128,4 +128,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Search)
+export default (Search)
