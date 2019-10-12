@@ -74,14 +74,14 @@ class Search extends React.Component {
         <Button title='Rechercher' onPress={() => this._searchFilms()}/>
         <FlatList
           data={this.state.films}
-          extraData={this.props.favoritesFilm}
+          extraData={this.props.favoriteFilm}
           // On utilise la prop extraData pour indiquer à notre FlatList que d’autres données doivent être prises en compte si on lui demande de se re-rendre
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) =>
             <FilmItem
               film={item}
               // Ajout d'une props isFilmFavorite pour indiquer à l'item d'afficher un 🖤 ou non
-              //isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
+              //isFilmFavorite={(this.props.favoriteFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
               displayDetailForFilm={this._displayDetailForFilm}
             />
           }
@@ -128,4 +128,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default (Search)
+export default connect(mapStateToProps)(Search)

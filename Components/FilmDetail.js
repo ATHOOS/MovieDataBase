@@ -10,13 +10,14 @@ import { connect } from 'react-redux'
 
 class FilmDetail extends React.Component {
   constructor(props) {
-    super(props)
-    //console.log(this.state)
+    super(props);
     this.state = {
       film: undefined,
       isLoading: true
     }
+    this._toggleFavorite = this._toggleFavorite.bind(this)
   }
+
 
   componentDidMount() {
     getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
@@ -42,13 +43,14 @@ class FilmDetail extends React.Component {
   }
 
   _toggleFavorite() {
-    const action = { type: "TOGGLE_FAVORITE", value: this.state.film }
+    const action = { type: "TOGGLE_FAVORITE", value: this.state.film.id }
     this.props.dispatch(action)
   }
 
-  /*_displayFavoriteImage() {
-    var sourceImage = require('../Images/ic_favorite.png')
-    if (this.props.favoritesFilm.filmIndex(item => item.id === this.state.film.id) !== -1) {
+  _displayFavoriteImage() {
+    var sourceImage = require('../Images/ic_favorite_border.png')
+    if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
+      // Film dans nos favoris
       sourceImage = require('../Images/ic_favorite.png')
     }
     return (
@@ -57,7 +59,7 @@ class FilmDetail extends React.Component {
         source={sourceImage}
       />
     )
-  }*/
+  }
 
   _displayFilm() {
     const { film } = this.state
@@ -69,7 +71,11 @@ class FilmDetail extends React.Component {
             source={{uri: getImageFromApi(film.backdrop_path)}}
           />
           <Text style={styles.title_text}>{film.title}</Text>
-          <Button title="Favoris" onPress={() => this._toggleFavorite()}/>
+          <TouchableOpacity
+            style={styles.favorite_container}
+            onPress={() => this._toggleFavorite()}>
+            {this._displayFavoriteImage()}
+          </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
           <Text style={styles.default_text}>Sorti le {moment(new Date(film.release_date)).format('DD/MM/YYYY')}</Text>
           <Text style={styles.default_text}>Note : {film.vote_average} / 10</Text>
