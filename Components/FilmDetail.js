@@ -52,7 +52,6 @@ class FilmDetail extends React.Component {
     if (this.props.favoritesFilm.includes(this.state.film.id)) {
       // Film dans nos favoris
       sourceImage = require('../Images/ic_favorite.png')
-
     }
     return (
       <Image
