@@ -1,4 +1,4 @@
-// Components/FilmItem.js
+
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
@@ -7,6 +7,7 @@ import { getImageFromApi } from '../API/TMDBApi'
 class FilmItem extends React.Component {
 
   _displayFavoriteImage() {
+    //console.log(this.props.isFilmFavorite)
     if (this.props.isFilmFavorite) {
       // Si la props isFilmFavorite vaut true, on affiche le 🖤
       return (

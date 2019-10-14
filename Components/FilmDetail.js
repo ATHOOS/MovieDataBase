@@ -20,6 +20,15 @@ class FilmDetail extends React.Component {
 
 
   componentDidMount() {
+    const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
+
+    if (favoriteFilmIndex !== -1) {
+      this.setState({
+        film: this.props.favoritesFilm[favoriteFilmIndex]
+      })
+      return
+    }
+    this.setState({ isLoading: true })
     getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
       this.setState({
         film: data,
@@ -28,9 +37,9 @@ class FilmDetail extends React.Component {
     })
   }
 
-  componentDidUpdate() {
+  /*componentDidUpdate() {
     console.log("componentDidUpdate : "+ this.props.favoritesFilm)
-  }
+  }*/
 
   _displayLoading() {
     if (this.state.isLoading) {
@@ -43,7 +52,7 @@ class FilmDetail extends React.Component {
   }
 
   _toggleFavorite() {
-    const action = { type: "TOGGLE_FAVORITE", value: this.state.film.id }
+    const action = { type: "TOGGLE_FAVORITE", value: this.state.film }
     this.props.dispatch(action)
   }
 
@@ -95,7 +104,7 @@ class FilmDetail extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+
     return (
       <View style={styles.main_container}>
         {this._displayLoading()}

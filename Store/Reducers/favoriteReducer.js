@@ -6,12 +6,14 @@ function toggleFavorite(state = initialState, action) {
   let nextState
   switch (action.type) {
     case 'TOGGLE_FAVORITE':
-      const favoriteFilmIndex = state.favoritesFilm.findIndex(item => item.id === action.value.id)
-      if (favoriteFilmIndex !== -1) {
+      const favoriteFilmIndex = state.favoritesFilm.includes(action.value)
+      if (favoriteFilmIndex !== false ) {
         // Le film est déjà dans les favoris, on le supprime de la liste
         nextState = {
           ...state,
-          favoritesFilm: state.favoritesFilm.filter( (item, index) => index !== favoriteFilmIndex)
+          favoritesFilm: state.favoritesFilm.filter(function(value, index, arr) {
+            return value != action.value
+          })
         }
       }
       else {
