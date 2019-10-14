@@ -7,7 +7,7 @@ import { getImageFromApi } from '../API/TMDBApi'
 class FilmItem extends React.Component {
 
   _displayFavoriteImage() {
-    console.log(this.props.isFilmFavorite)
+    //console.log(this.props.isFilmFavorite)
     if (this.props.isFilmFavorite) {
       // Si la props isFilmFavorite vaut true, on affiche le 🖤
       return (

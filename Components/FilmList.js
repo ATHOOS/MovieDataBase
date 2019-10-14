@@ -20,10 +20,6 @@ _displayDetailForFilm = (idFilm) => {
 }
 
 render() {
-    //console.log(this.props.favoritesFilm)
-    //console.log(this.props.films)
-
-
     return (
         <FlatList
           style={styles.list}
@@ -33,7 +29,7 @@ render() {
           renderItem={({item}) => (
             <FilmItem
               film={item}
-              isFilmFavorite={ this.props.favoritesFilm.includes(item.id) }
+              isFilmFavorite={ this.props.favoritesFilm.includes(item) }
               displayDetailForFilm={this._displayDetailForFilm}
             />
           )}

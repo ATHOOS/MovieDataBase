@@ -3,7 +3,6 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator } from 'react-native'
 import FilmItem from './FilmItem'
-//import Favorites from './Favorites'
 import FilmList from './FilmList'
 import { getFilmsFromApiWithSearchedText } from '../API/TMDBApi'
 import { connect } from 'react-redux'
@@ -68,6 +67,7 @@ class Search extends React.Component {
 
 
   render() {
+    console.log(this.props.favoritesFilm)
     return (
       <View style={styles.main_container}>
         <TextInput
@@ -82,13 +82,15 @@ class Search extends React.Component {
           extraData={this.props.favoritesFilm}
           // On utilise la prop extraData pour indiquer à notre FlatList que d’autres données doivent être prises en compte si on lui demande de se re-rendre
           keyExtractor={function(item) {
+            console.log(item)
+            //console.log(item.id.toString())
             item.id.toString()
           }}
           renderItem={({item}) =>
             <FilmItem
               film={item}
               // Ajout d'une props isFilmFavorite pour indiquer à l'item d'afficher un 🖤 ou non
-              isFilmFavorite={ this.props.favoritesFilm.includes(item.id) }
+              isFilmFavorite={ this.props.favoritesFilm.includes(item) }
               displayDetailForFilm={this._displayDetailForFilm}
             />
           }
