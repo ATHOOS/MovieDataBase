@@ -27,7 +27,7 @@ render() {
           style={styles.list}
           data={this.props.films}
           extraData={this.props.favoritesFilm}
-          keyExtractor={this.props.favoritesFilm}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
             <FilmItem
               film={item}
