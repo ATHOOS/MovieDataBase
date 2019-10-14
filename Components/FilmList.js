@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import FilmItem from './FilmItem'
+import { getFilmDetailFromApi } from '../API/TMDBApi'
 import { connect } from 'react-redux'
 
 class FilmList extends React.Component {
@@ -19,15 +20,16 @@ _displayDetailForFilm = (idFilm) => {
 }
 
 render() {
-    console.log(this.props.favoritesFilm)
-    console.log(this.props.films)
+    //console.log(this.props.favoritesFilm)
+    //console.log(this.props.films)
+
 
     return (
         <FlatList
           style={styles.list}
           data={this.props.films}
           extraData={this.props.favoritesFilm}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
           renderItem={({item}) => (
             <FilmItem
               film={item}
@@ -35,6 +37,7 @@ render() {
               displayDetailForFilm={this._displayDetailForFilm}
             />
           )}
+
           onEndReachedThreshold={0.5}
           onEndReached={() => {
             if (!this.props.favoriteList && this.props.page < this.props.totalPages) {

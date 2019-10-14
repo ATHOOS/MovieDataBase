@@ -81,7 +81,9 @@ class Search extends React.Component {
           data={this.state.films}
           extraData={this.props.favoritesFilm}
           // On utilise la prop extraData pour indiquer à notre FlatList que d’autres données doivent être prises en compte si on lui demande de se re-rendre
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={function(item) {
+            item.id.toString()
+          }}
           renderItem={({item}) =>
             <FilmItem
               film={item}

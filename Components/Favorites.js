@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 class Favorites extends React.Component {
 
   render() {
+    //console.log(this.props.favoritesFilm)
     return (
       <FilmList
         films={this.props.favoritesFilm}
