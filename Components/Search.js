@@ -3,6 +3,8 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator } from 'react-native'
 import FilmItem from './FilmItem'
+//import Favorites from './Favorites'
+import FilmList from './FilmList'
 import { getFilmsFromApiWithSearchedText } from '../API/TMDBApi'
 import { connect } from 'react-redux'
 
@@ -17,6 +19,8 @@ class Search extends React.Component {
       films: [],
       isLoading: false
     }
+
+    this._loadFilms = this._loadFilms.bind(this)
   }
 
   _loadFilms() {
@@ -75,23 +79,17 @@ class Search extends React.Component {
         <Button title='Rechercher' onPress={() => this._searchFilms()}/>
         <FlatList
           data={this.state.films}
-
           extraData={this.props.favoritesFilm}
-
           // On utilise la prop extraData pour indiquer à notre FlatList que d’autres données doivent être prises en compte si on lui demande de se re-rendre
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) =>
             <FilmItem
               film={item}
               // Ajout d'une props isFilmFavorite pour indiquer à l'item d'afficher un 🖤 ou non
-              isFilmFavorite={(this.props.favoritesFilm.findIndex(films => films.id === item.id) !== -1) ? true : false}
-              //isFilmFavorite={(this.props.favoritesFilm.findIndex(this.state.films.id) !== -1) ? true : false}
-              //isFilmFavorite={ _isFavorite(this.props.favoritesFilm, this.state.films) }
+              isFilmFavorite={ this.props.favoritesFilm.includes(item.id) }
               displayDetailForFilm={this._displayDetailForFilm}
             />
-
           }
-
           onEndReachedThreshold={0.5}
           onEndReached={() => {
               if (this.page < this.totalPages) { // On vérifie également qu'on n'a pas atteint la fin de la pagination (totalPages) avant de charger plus d'éléments
